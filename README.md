@@ -7,4 +7,4 @@ run the below commands from the root of the project.
 "webpack" 
 
 //to run webpack dev server
-npm run serve 
+"npm run serve" 
