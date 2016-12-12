@@ -1,6 +1,5 @@
 var path = require('path');
-//require("file?name=html-[hash:6].html!./src/index.html");
-//var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
 	devtool: 'cheap-eval-source-map',
 
@@ -13,35 +12,33 @@ module.exports = {
     filename: 'bundle.js'
   },
 
-	module: {
-		loaders : [{
-			loader: 'babel',
-			test : /\.jsx$/
-		},
+  module: {
+    loaders : [{
+     loader: 'babel',
+     test : /\.jsx$/
+   },
+   ]
+ },
 
-		/*{
-        test: /\.html$/,
-        loader: 'file'
-      },*/]
-	},
-
-	/*plugins: [
-    new HtmlWebpackPlugin({
-      title: 'React Dev Setup',
-      filename: 'index.html',
-      appMountId: 'content'
-    })
-  ],*/
-
-  node: {
+ node: {
   fs: "empty",
   net:"empty"
 },
 
-	watch: true,
+devServer: {
+    host: 'localhost',
+    port: 8080,
+    contentBase: path.join(__dirname, 'client', 'assets'),
+    hot: true,
+    proxy: {
+      '/api/*' : 'http://localhost:3000',
+    }
+  },
 
-	resolve: {
-    extensions: ['','.js','.jsx','/index','/index.js','/index.jsx']
-  }
+watch: true,
+
+resolve: {
+  extensions: ['','.js','.jsx','/index','/index.js','/index.jsx']
+}
 
 }

@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/webpack/bin/webpack.js",
-    "serve": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base client/assets --inline --hot",
+    "serve": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8085 --content-base client/assets --inline --hot",
+    "start": "node server/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  
   "author": "Raghu <raghuprathap478@gmail.com>",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +17,10 @@
     "jsonwebtoken": "^7.1.9",
     "lodash": "^4.16.4",
     "superagent": "^2.3.0",
-    "superagent-auth-bearer": "0.0.1"
+    "superagent-auth-bearer": "0.0.1",
+    "body-parser":"1.15.2",
+    "serve-favicon":"2.3.2",
+    "morgan":"1.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
@@ -29,6 +32,7 @@
     "bower": "^1.7.9",
     "eslint": "^3.9.0",
     "eslint-plugin-react": "^6.4.1",
+    "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-eslint": "^3.0.1",
@@ -46,6 +50,8 @@
     "react-router": "^3.0.0",
     "react-tap-event-plugin": "^1.0.0",
     "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2"
   }
 }
