@@ -3,8 +3,6 @@ Dev environment setup for react web application
 
 run the below commands from the root of the project.
 
-// to run webpack
-"webpack" 
+npm install
 
-//to run webpack dev server
-"npm run serve" 
+npm start
