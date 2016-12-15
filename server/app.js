@@ -19,11 +19,18 @@ var compiler = webpack(webpackConfig);
 
 app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
-    stats: {colors: true} // Same as `output.publicPath` in most cases.
+    stats: {colors: true}, // Same as `output.publicPath` in most cases.
+    quiet: true,
+    noInfo: true,
+    host: '0.0.0.0',
+    watchOptions:{
+      aggregateTimeout:300,
+      poll:1000
+    }
 }));
 
 app.use(webpackHotMiddleware(compiler, {
-    log: console.log
+    log: console.log,
 }))
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

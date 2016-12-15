@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node node_modules/webpack/bin/webpack.js",
-    "serve": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 8085 --content-base client/assets --inline --hot",
+    "serve": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "start": "node server/bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,9 +18,9 @@
     "lodash": "^4.16.4",
     "superagent": "^2.3.0",
     "superagent-auth-bearer": "0.0.1",
-    "body-parser":"1.15.2",
-    "serve-favicon":"2.3.2",
-    "morgan":"1.7.0"
+    "body-parser": "1.15.2",
+    "serve-favicon": "2.3.2",
+    "morgan": "1.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",
@@ -47,6 +47,7 @@
     "react": "~15.3.2",
     "react-cookie": "^0.4.8",
     "react-dom": "~15.3.2",
+    "react-hot-loader": "^1.3.1",
     "react-router": "^3.0.0",
     "react-tap-event-plugin": "^1.0.0",
     "webpack": "^1.13.3",
