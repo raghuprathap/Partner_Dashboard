@@ -2,17 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'file?name=[name].[ext]!../index.html';
 import 'file?name=[name].[ext]!../css/style.css';
-export default class MainComponent extends React.Component{
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+import HomePage from './components/HomePage.jsx';
+import LoginPage from './components/LoginPage.jsx';
+import RegisterPage from './components/RegisterPage.jsx';
+import DashboardPage from './components/DashboardPage.jsx';
+export default class MainComponent extends React.Component {
 
   render() {
-    return(
+    return (
       <div className="MainComponent">
-       
+
       </div>
-  );
+    );
   }
 }
 ReactDOM.render(
-  <h1>Hello, Raghu</h1>,
+  <MuiThemeProvider>
+    <Router history={browserHistory}>
+      <Route path="/" component={HomePage} />
+      <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
+    </Router>
+  </MuiThemeProvider>,
   document.getElementById('content')
 );
