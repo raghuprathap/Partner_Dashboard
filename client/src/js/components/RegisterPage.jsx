@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -12,9 +12,11 @@ export default class RegisterPage extends React.Component {
     registerFun() {
         var uname = document.getElementById('userid').value;
         var pass = document.getElementById('password').value;
+        var partnerName = document.getElementById('partnerName').value;
         var data = {};
         data.username = uname;
         data.password = pass;
+        data.partnerName = partnerName;
 
         $.ajax({
             url: "/users/add",
@@ -37,6 +39,9 @@ export default class RegisterPage extends React.Component {
             <div>
                 <h2 className="card-heading" style={{ "marginLeft": "45%" }}>Register</h2>
                 <center>
+                    <div className="field-line">
+                        <TextField type="text" className="form-control" id="partnerName" name="Partner Name" floatingLabelText="Oragnaisation name" /><br /><br />
+                    </div>
                     <div className="field-line">
                         <TextField type="text" className="form-control" id="userid" name="User name" floatingLabelText="User name" /><br /><br />
                     </div>

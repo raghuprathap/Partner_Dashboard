@@ -6,24 +6,24 @@ var LocalStrategy = require('passport-local').Strategy;
 var jwt = require('jsonwebtoken');
 
 passport.use(new LocalStrategy(function(username, password, done) {
-	console.log("username" + username);
-    User.findOne({ username: username }, function (err, user) {
-      if (err) {
-      	console.log("error");
-      	return done(err); 
-      }
-      if (!user) {
-      	console.log("user not valid");
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (user.password != password) {
-      	console.log("password not valid");
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      console.log("success");
-      return done(null, user);
+    console.log("username" + username);
+    User.findOne({ username: username }, function(err, user) {
+        if (err) {
+            console.log("error");
+            return done(err);
+        }
+        if (!user) {
+            console.log("user not valid");
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (user.password != password) {
+            console.log("password not valid");
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+
+        return done(null, user);
     });
-  }));
+}));
 
 // Configure Passport authenticated session persistence.
 //
@@ -34,26 +34,61 @@ passport.use(new LocalStrategy(function(username, password, done) {
 // deserializing.
 
 passport.serializeUser(function(user, done) {
-	console.log('serializeUser');
-	done(null, user.id);
+    console.log('serializeUser');
+    done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-	console.log("deserializeUser")
-	User.findById(id, function(err, user) {
-		done(err, user);
-	});
+    console.log("deserializeUser")
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
 });
 
-router.route('/').post(passport.authenticate('local', {session: false, failureFlash: 'Invalid Username and Password',
-  successFlash: "Welcome to  App"}),
-function(req, res){
-  var token = jwt.sign({
-    id: req.user.id,
-  }, 'server secret', {
-    expiresIn: 120
-  });
-  res.json({token: token});
+router.route('/').post(function(req, res, next) {
+    /*passport.authenticate('local', {
+    session: false,
+    failureFlash: 'Invalid Username and Password',
+    successFlash: "Welcome to  App"
+}),
+*/
+
+    passport.authenticate('local', function(err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+
+            console.log('no account found, so we will register user as expected...');
+            //registerUser(req,res,next);
+        } else {
+
+            req.logIn(user, function(err) { //this is crucial
+
+                if (err) {
+                    return next(err);
+                }
+
+                req.session.user = user;
+                res.json({ user: user });
+            });
+        }
+
+    })(req, res, next);
+    /*function(req, res) {
+    var token = jwt.sign({
+        id: req.user.id,
+    }, 'server secret', {
+        expiresIn: 120
+    });
+
+
+    res.json({ token: token });
+}
+
+
+res.send("logged in");
+*/
 });
 
 module.exports = router;

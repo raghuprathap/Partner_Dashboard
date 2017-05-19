@@ -49,9 +49,6 @@ function getEnrolledCourses(req, res) {
         .catch(function(err) {
             res.status(500).send('Error - ' + err);
         }).done();
-
-
-
 }
 
 /*function getCourse() {
@@ -61,7 +58,5 @@ function getEnrolledCourses(req, res) {
 
 }
 */
-
-
 
 module.exports = router;

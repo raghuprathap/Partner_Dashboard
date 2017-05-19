@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 export default class HomePage extends Component {
     render() {

@@ -10,6 +10,7 @@ import ActionExitToApp from 'material-ui/svg-icons/action/exit-to-app';
 import ActionViewList from 'material-ui/svg-icons/action/view-list';
 import ActionDashboard from 'material-ui/svg-icons/action/dashboard';
 import Avatar from 'material-ui/Avatar';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
 const styles = {
   avatarContainer: {
@@ -34,7 +35,7 @@ export default class NavBar extends React.Component {
     };
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     const setUserInState = () => {
       this.setState({
         user: JSON.parse(localStorage.user)
@@ -43,7 +44,7 @@ export default class NavBar extends React.Component {
 
     if(!localStorage.user) {
       request
-        .get('/api/v1/auth/gitlab/me')
+        .get('/getUser')
         .end(function(err, response) {
           if(err) { throw err; }
           localStorage.user = JSON.stringify(response.body);
@@ -52,7 +53,7 @@ export default class NavBar extends React.Component {
     } else {
       setUserInState();
     }
-  }
+  }*/
 
   handleLogout() {
     delete localStorage.user;
@@ -87,6 +88,16 @@ export default class NavBar extends React.Component {
               leftIcon={<ActionDashboard />}
               onTouchTap={() => { this.context.router.push('/dashboard'); }}>
               Dashboard
+            </MenuItem>
+            <MenuItem
+              leftIcon={<ActionDashboard />}
+              onTouchTap={() => { this.context.router.push('/admin'); }}>
+              Admin View
+            </MenuItem>
+            <MenuItem
+              leftIcon={<ActionDashboard />}
+              onTouchTap={() => { this.context.router.push('/CourseAdminView'); }}>
+              Partner Details
             </MenuItem>
         </Drawer>
       </div>

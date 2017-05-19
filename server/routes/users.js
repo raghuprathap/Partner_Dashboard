@@ -9,17 +9,35 @@ router.post("/add", function(req, res) {
         var userVar = new User();
         userVar.username = req.body.username;
         userVar.password = req.body.password;
+        userVar.partnerName = req.body.partnerName;
+        if (req.body.role) {
+            userVar.role = req.body.role;
+        } else {
+            userVar.role = "user";
+        }
+
         userVar.save(function(err) {
-            console.log("inside insert1111");
             if (err) {
-                console.log("inside error");
                 res.send(err);
             } else {
-                console.log("inside insert");
                 res.send("User inserted");
             }
         });
     }
+
+});
+
+router.get("/", function(req, res) {
+    console.log("req.user", req.user);
+    /* User.findOne({ username: username }, function(err, user) {
+     if (err) {
+         console.log("error");
+         return done(err);
+     }
+     return done(null, user);
+ });
+*/
+    res.send(req.user);
 
 });
 

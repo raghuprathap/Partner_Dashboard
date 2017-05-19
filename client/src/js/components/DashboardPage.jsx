@@ -14,7 +14,7 @@ export default class DashboardPage extends React.Component {
     }
     constructor(props){
         super(props);
-        this.state = {dashboardData : {}}
+        this.state = {dashboardData : {}, userData : {}}
     }
     componentWillMount() {
         $.ajax({
@@ -22,6 +22,19 @@ export default class DashboardPage extends React.Component {
             type: "GET",
             success: function (data) {
                 this.setState({dashboardData:data});
+            }.bind(this),
+            error: function (err) {
+                console.log(err);
+            }.bind(this)
+        });
+
+        $.ajax({
+            url: "/getUser",
+            type: "GET",
+            success: function (data) {
+                console.log(data)
+                this.setState({userData:data});
+                localStorage.user = data;
             }.bind(this),
             error: function (err) {
                 console.log(err);
@@ -42,9 +55,9 @@ export default class DashboardPage extends React.Component {
                 <h4>Course Subscription Details</h4>
                 {
                     
-                            <Card>
+                            <Card initiallyExpanded={true}>
                                 <CardHeader
-                                    title= "Partner Dashboard"
+                                    title= {'Partner Dashboard - ' + this.state.userData.partnerName}
                                     actAsExpander={true}
                                     showExpandableButton={true}
                                     />

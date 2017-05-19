@@ -12,6 +12,8 @@ import HomePage from './components/HomePage.jsx';
 import LoginPage from './components/LoginPage.jsx';
 import RegisterPage from './components/RegisterPage.jsx';
 import DashboardPage from './components/DashboardPage.jsx';
+import CourseAdmin from './components/CourseAdmin.jsx';
+import CourseAdminView from './components/CourseAdminView.jsx';
 export default class MainComponent extends React.Component {
 
   render() {
@@ -27,6 +29,8 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={HomePage} />
       <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/admin" component={CourseAdmin} />
+      <Route path="/CourseAdminView" component={CourseAdminView} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
     </Router>

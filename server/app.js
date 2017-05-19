@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var dashboardRoute = require('./routes/DashboardRoute');
+var partnerDetailsRoute = require('./routes/partnerDetailsRoute');
 var webpackDevMiddleware = require("webpack-dev-middleware");
 var webpack = require("webpack");
 var webpackConfig = require("../webpack.config");
@@ -15,7 +16,8 @@ var webpackHotMiddleware = require('webpack-hot-middleware');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var connectflash = require('connect-flash');
-//var session = require('express-session');
+var gitLabFork = require('./routes/GitLabFork');
+var session = require('express-session');
 
 var app = express();
 var compiler = webpack(webpackConfig);
@@ -63,7 +65,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login', loginRoute);
 app.use('/', routes);
 app.use('/users', users);
+app.use('/getUser', users);
 app.use('/ilimi', dashboardRoute);
+app.use('/gitLab', gitLabFork);
+app.use('/partnerDetails', partnerDetailsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -96,6 +101,16 @@ app.use(function(err, req, res, next) {
     });
 });
 
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}));
 
 
 module.exports = app;
