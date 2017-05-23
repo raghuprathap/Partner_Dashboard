@@ -3,6 +3,8 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import $ from 'jquery';
+import NavBar from './NavBar';
 
 export default class CourseAdmin extends React.Component{
 	saveCourseAdminData(){
@@ -23,6 +25,10 @@ export default class CourseAdmin extends React.Component{
 	}
 	render(){
 		return(
+            <div>
+            <div className="row">
+                    <div className="col-md-12"><NavBar /></div>
+                </div>
 			<div>
                 <h2 className="card-heading" style={{ "marginLeft": "45%" }}>Partner details</h2>
                 <center>
@@ -38,6 +44,7 @@ export default class CourseAdmin extends React.Component{
                 </center>
                 <RaisedButton label="save" onClick={this.saveCourseAdminData.bind(this)} style={{ "marginLeft": "45%", "marginTop": "25px" }} />
 
+            </div>
             </div>
 		)
 	}

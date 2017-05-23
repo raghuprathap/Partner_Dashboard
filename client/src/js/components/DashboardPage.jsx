@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from './NavBar';
 import $ from 'jquery';
 import { Link } from 'react-router';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
@@ -28,18 +28,7 @@ export default class DashboardPage extends React.Component {
             }.bind(this)
         });
 
-        $.ajax({
-            url: "/getUser",
-            type: "GET",
-            success: function (data) {
-                console.log(data)
-                this.setState({userData:data});
-                localStorage.user = data;
-            }.bind(this),
-            error: function (err) {
-                console.log(err);
-            }.bind(this)
-        });
+        
 
     }
 

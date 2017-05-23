@@ -18,6 +18,7 @@ router.post('/add', (req, res) => {
 });
 
 router.get('/get', (req, res) => {
+    console.log("inside getPratnerDetails########");
     partnerDetailsSchema.find({}, (err, partnerDetails) => {
         if (err) {
             res.send(err);

@@ -35,25 +35,35 @@ export default class NavBar extends React.Component {
     };
   }
 
-  /*componentDidMount() {
-    const setUserInState = () => {
+  componentWillMount(){
+    delete localStorage.user;
+  }
+
+  componentDidMount() {
+   if(!localStorage.user) {
+      $.ajax({
+            url: "/getUser",
+            type: "GET",
+            success: function (data) {
+                console.log(data)
+                localStorage.setItem('user', JSON.stringify(data));
+                this.setUserInState();
+            }.bind(this),
+            error: function (err) {
+                console.log(err);
+            }.bind(this)
+        });
+    } else {
+      this.setUserInState();
+    }
+  }
+
+setUserInState(){
       this.setState({
         user: JSON.parse(localStorage.user)
       });
-    };
-
-    if(!localStorage.user) {
-      request
-        .get('/getUser')
-        .end(function(err, response) {
-          if(err) { throw err; }
-          localStorage.user = JSON.stringify(response.body);
-          setUserInState();
-        });
-    } else {
-      setUserInState();
     }
-  }*/
+
 
   handleLogout() {
     delete localStorage.user;
@@ -62,7 +72,8 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    return (
+    if(this.state.user){
+      return (
       <div>
         <AppBar
           title="Partner Dashboard"
@@ -79,15 +90,12 @@ export default class NavBar extends React.Component {
               null }
             </div>
             <Divider />
+           {JSON.parse(localStorage.getItem('user')).role === 'admin' ? (
+            <div>
             <MenuItem
               leftIcon={<ActionExitToApp />}
               onTouchTap={this.handleLogout.bind(this)}>
               Logout
-            </MenuItem>
-            <MenuItem
-              leftIcon={<ActionDashboard />}
-              onTouchTap={() => { this.context.router.push('/dashboard'); }}>
-              Dashboard
             </MenuItem>
             <MenuItem
               leftIcon={<ActionDashboard />}
@@ -99,8 +107,29 @@ export default class NavBar extends React.Component {
               onTouchTap={() => { this.context.router.push('/CourseAdminView'); }}>
               Partner Details
             </MenuItem>
+            </div>
+              ) : (
+              <div>
+            <MenuItem
+              leftIcon={<ActionExitToApp />}
+              onTouchTap={this.handleLogout.bind(this)}>
+              Logout
+            </MenuItem>
+            <MenuItem
+              leftIcon={<ActionDashboard />}
+              onTouchTap={() => { this.context.router.push('/dashboard'); }}>
+              Dashboard
+            </MenuItem>
+            </div>
+              )}
+            
         </Drawer>
       </div>
     );
+    } else {
+        return(<div>"loading..."</div>);
+      }
+    }
+    
   }
-}
+
